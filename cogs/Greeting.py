@@ -9,5 +9,5 @@ class Greeting(commands.Cog):
         print(f'{ctx.author} used greet')
         await ctx.send(f'Hi {ctx.author.name}!')
 
-def setup(bot):
-    bot.add_cog(Greeting(bot))
+async def setup(bot):
+    await bot.add_cog(Greeting(bot))
