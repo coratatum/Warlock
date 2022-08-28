@@ -2,6 +2,7 @@ import os
 import logging
 import discord
 from discord.ext import commands
+import asyncio
 
 # maybe move logging configuration out if...possible???? idk
 logger = logging.getLogger('discord')
@@ -11,23 +12,29 @@ handler.setFormatter(logging.Formatter('%(asctime)s:%(levelname)s:%(name)s: %(me
 logger.addHandler(handler)
 
 # todo: remove token from hardcode. Create env secrets
-TOKEN = "OTUwNTQ2OTI2MTQxNTk5ODE0.Yiafzw._gLc07SNsjmY5mSFVnyKEiTGjns"
-bot = commands.Bot(command_prefix="w.")
+TOKEN = "MTAxMzI0NjM3NzE4MDAxMjYzNQ.GGv1q8.DTT2AXz3I9StXe9zsUuGFKz6FvStxyRZiYJ8L4"
+# todo: set up specific intents
+intents = discord.Intents.all()
+bot = commands.Bot(intents=intents, command_prefix="w.")
 
 @bot.event
 async def on_ready():
     print(f'{bot.user.name} has connected to discord')
 
-# Get .py files from minion directory and load them in as extensions for the bot
-# Keep command logic with commands and main file clean
-cogs = [x.replace('.py', '') for x in os.listdir('cogs') if x.endswith('.py')]
-for extension in cogs:
-    try:
-        bot.load_extension(f'cogs.{extension}')
-        print(f'loaded extenson {extension}')
-    except Exception as e:
-        message = f'Error loading {extension}\n'f'{type(e).__name__}: {e}'
-        print(message)
-        logger.exception(message)
+async def setup(bot):
+    # Grab all the .py files from the cogs directory and load them into the bot
+    # This lets us keep the main file simple and exports all command logic to the cogs files
+    cogs = [x.replace('.py', '') for x in os.listdir('cogs') if x.endswith('.py')]
+    for extension in cogs:
+        try:
+            await bot.load_extension(f'cogs.{extension}')
+            print(f'Loaded extension: {extension}')
+        except Exception as e:
+            print(f'LoadError: {extension}\n'
+                    f'{type(e).__name__}: {e}')
 
-bot.run(TOKEN)
+async def main():
+    await setup(bot)
+    await bot.start(TOKEN)
+
+asyncio.run(main())
