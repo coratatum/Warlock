@@ -10,5 +10,5 @@ class DiceRoller(commands.Cog):
         print(f'{ctx.author} used d20')
         await ctx.send(random.randint(1,20))
     
-async def setup(bot):
-    await bot.add_cog(DiceRoller(bot))
+def setup(bot):
+    bot.add_cog(DiceRoller(bot))

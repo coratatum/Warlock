@@ -8,5 +8,5 @@ class PowerWordKick(commands.Cog):
         self.bot = bot
     
 
-async def setup(bot):
-    await bot.add_cog(PowerWordKick(bot))
+def setup(bot):
+    bot.add_cog(PowerWordKick(bot))
