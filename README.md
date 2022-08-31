@@ -3,16 +3,14 @@
 ## To Do
 
 * get running on a server of some sort
-* make purge command
-  * should it take in a file from discord?
-  * validate file format, etc
-  * look in bookmarks for saved stackoverflow base
+* set up a better feature tracking system
 * secret management for token
 * command check validations
   * aka command isnt from the bot itself on accident
   * this is more on a case by case basis
 * create help command
 * role based permissions and configuration of such
+* connect with patreon api
 
 ## Commands
 

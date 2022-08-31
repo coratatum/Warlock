@@ -3,6 +3,7 @@ import logging
 import discord
 from discord.ext import commands
 import asyncio
+from config.settings import DISCORD_TOKEN
 
 # maybe move logging configuration out if...possible???? idk
 logger = logging.getLogger('discord')
@@ -11,8 +12,6 @@ handler = logging.FileHandler(filename='./logging/discord.log', encoding='utf-8'
 handler.setFormatter(logging.Formatter('%(asctime)s:%(levelname)s:%(name)s: %(message)s'))
 logger.addHandler(handler)
 
-# todo: remove token from hardcode. Create env secrets
-TOKEN = "MTAxMzI0NjM3NzE4MDAxMjYzNQ.GGv1q8.DTT2AXz3I9StXe9zsUuGFKz6FvStxyRZiYJ8L4"
 # todo: set up specific intents
 intents = discord.Intents.all()
 bot = commands.Bot(intents=intents, command_prefix="w.")
@@ -35,6 +34,6 @@ async def setup(bot):
 
 async def main():
     await setup(bot)
-    await bot.start(TOKEN)
+    await bot.start(DISCORD_TOKEN)
 
 asyncio.run(main())

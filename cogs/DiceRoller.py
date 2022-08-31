@@ -1,6 +1,7 @@
 import random
 from discord.ext import commands
 
+# switch to w.roll xdy for more configurable dice rolling
 class DiceRoller(commands.Cog):
     def __init__(self, bot):
         self.bot = bot
