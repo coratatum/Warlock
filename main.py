@@ -3,15 +3,19 @@ import discord
 import logging
 import asyncio
 from discord.ext import commands
-from config.settings import GCP_PROJECT_ID, DISCORD_TOKEN_ID, DISCORD_TOKEN_ID_VER
+from config.settings import GCP_PROJECT_ID, DISCORD_TOKEN_ID, DISCORD_TOKEN_ID_VER, LOGGER_NAME
 from config.secrets import access_secret_version
+from config.logger import setup_gcp_logging
 
 # Bot setup
 intents = discord.Intents.all()
 bot = commands.Bot(intents=intents, command_prefix="w.")
+logger = logging.getLogger(LOGGER_NAME)
 
 @bot.event
 async def on_ready():
+    logger.error("I SCREAM")
+    logger.info(f'{bot.user.name} has connected to discord')
     print(f'{bot.user.name} has connected to discord')
 
 async def setup(bot):
@@ -22,13 +26,14 @@ async def setup(bot):
         try:
             await bot.load_extension(f'cogs.{extension}')
             print(f'Loaded extension: {extension}')
-            logging.info(f'Loaded extension: {extension}')
+            logger.info(f'Loaded extension: {extension}')
         except Exception as e:
             print(f'LoadError: {extension}\n'
                     f'{type(e).__name__}: {e}')
-            logging.error(f'LoadError: {extension}\n'f'{type(e).__name__}: {e}')
+            logger.error(f'LoadError: {extension}\n'f'{type(e).__name__}: {e}')
 
 async def main():
+    setup_gcp_logging(GCP_PROJECT_ID, LOGGER_NAME)
     await setup(bot)
     await bot.start(await access_secret_version(GCP_PROJECT_ID, DISCORD_TOKEN_ID, DISCORD_TOKEN_ID_VER))
 

@@ -1,12 +1,11 @@
-import google.cloud.logging
+import google.cloud.logging as glog
 import logging
 
-# Instantiates a client
-client = google.cloud.logging.Client()
 
-# Retrieves a Cloud Logging handler based on the environment
-# you're running in and integrates the handler with the
-# Python logging module. By default this captures all logs
-# at INFO level and higher
-client.setup_logging()
-logging.basicConfig(filename='./logging/discord.log', encoding='utf-8', filemode='w', level=logging.INFO)
+def setup_gcp_logging(project_id, logger_name):
+    client = glog.Client(project=project_id)
+    client.setup_logging()
+    # cloud_handler = glog.handlers.CloudLoggingHandler(client)
+    logging.basicConfig(filename='./logging/discord.log', filemode='w', encoding='utf-8', level=logging.INFO)
+    logger = logging.getLogger(logger_name)
+    # logger.addHandler(cloud_handler)
