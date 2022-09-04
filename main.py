@@ -3,7 +3,8 @@ import discord
 import logging
 import asyncio
 from discord.ext import commands
-from config.settings import DISCORD_TOKEN
+from config.settings import GCP_PROJECT_ID, DISCORD_TOKEN_ID, DISCORD_TOKEN_ID_VER
+from config.secrets import access_secret_version
 
 # Bot setup
 intents = discord.Intents.all()
@@ -29,6 +30,6 @@ async def setup(bot):
 
 async def main():
     await setup(bot)
-    await bot.start(DISCORD_TOKEN)
+    await bot.start(await access_secret_version(GCP_PROJECT_ID, DISCORD_TOKEN_ID, DISCORD_TOKEN_ID_VER))
 
 asyncio.run(main())
