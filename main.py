@@ -1,18 +1,11 @@
 import os
-import logging
 import discord
-from discord.ext import commands
+import logging
 import asyncio
+from discord.ext import commands
 from config.settings import DISCORD_TOKEN
 
-# maybe move logging configuration out if...possible???? idk
-logger = logging.getLogger('discord')
-logger.setLevel(logging.INFO)
-handler = logging.FileHandler(filename='./logging/discord.log', encoding='utf-8', mode='w')
-handler.setFormatter(logging.Formatter('%(asctime)s:%(levelname)s:%(name)s: %(message)s'))
-logger.addHandler(handler)
-
-# todo: set up specific intents
+# Bot setup
 intents = discord.Intents.all()
 bot = commands.Bot(intents=intents, command_prefix="w.")
 
@@ -28,9 +21,11 @@ async def setup(bot):
         try:
             await bot.load_extension(f'cogs.{extension}')
             print(f'Loaded extension: {extension}')
+            logging.info(f'Loaded extension: {extension}')
         except Exception as e:
             print(f'LoadError: {extension}\n'
                     f'{type(e).__name__}: {e}')
+            logging.error(f'LoadError: {extension}\n'f'{type(e).__name__}: {e}')
 
 async def main():
     await setup(bot)
