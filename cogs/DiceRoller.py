@@ -11,7 +11,6 @@ class DiceRollerCommand(commands.Cog):
     
     @commands.command(name='roll')
     async def roll_xdy_cmd(self, ctx, arg):
-        print(f'{ctx.author} used roll')
         logger.info(f'{ctx.author} used roll')
         await ctx.send(await roll_xdy(arg))
     

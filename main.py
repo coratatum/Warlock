@@ -14,7 +14,6 @@ logger = logging.getLogger(LOGGER_NAME)
 
 @bot.event
 async def on_ready():
-    logger.error("I SCREAM")
     logger.info(f'{bot.user.name} has connected to discord')
     print(f'{bot.user.name} has connected to discord')
 
@@ -25,11 +24,8 @@ async def setup(bot):
     for extension in cogs:
         try:
             await bot.load_extension(f'cogs.{extension}')
-            print(f'Loaded extension: {extension}')
             logger.info(f'Loaded extension: {extension}')
         except Exception as e:
-            print(f'LoadError: {extension}\n'
-                    f'{type(e).__name__}: {e}')
             logger.error(f'LoadError: {extension}\n'f'{type(e).__name__}: {e}')
 
 async def main():
