@@ -15,6 +15,7 @@ async def parse_xdy(xdy):
         if all(num > 0 for num in split_ints):
             return split_ints
     
+    # throw invalid input exception or some shit
     logger.warning("Parse encountered incorrect format: " + xdy)
     return InvalidInput
 
@@ -24,6 +25,8 @@ async def roll_parsed(x, y):
         results.append(random.randint(1,y))
     return results
 
+# clearly need to add testing around this lmao
 async def roll_xdy(xdy):
     parsed = await parse_xdy(xdy)
+    # catch, return Invalid Input
     return await roll_parsed(parsed[0], parsed[1])
