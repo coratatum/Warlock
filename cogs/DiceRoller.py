@@ -1,5 +1,5 @@
 from discord.ext import commands
-from utils.DiceRoller import roll_xdy
+from utils.dice_roller import roll_xdy
 from config.settings import LOGGER_NAME
 import logging
 

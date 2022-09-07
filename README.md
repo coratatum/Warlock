@@ -1,23 +1,15 @@
-# Warlock for Khopper Discord
-
-## To Do
-
-* get running on a server of some sort
-* set up a better feature tracking system
-* secret management for token
-* command check validations
-  * aka command isnt from the bot itself on accident
-  * this is more on a case by case basis
-* create help command
-* role based permissions and configuration of such
-* connect with patreon api
+# Warlock Discord Bot
+A bot for use within Khopper Dice's Discord
 
 ## Commands
+w.roll xdy
+: for x and y as positive integers, "rolls" x number of y-sided dice. Ex w.roll 3d6 generates three random numbers between 1 and 6
 
-$ w.greet
-'Hi'
-$ w.d20
-generates a random number between 1 and 20, inclusive
-$ w.PowerWordKick
-eventually will allow to kick users that should no longer be in the discord
-will have params
+w.greet
+: returns "Hi {user}"
+
+## Local Build
+- Currently requires python3 and a connection to GCP for secret management and logging
+- Install required packages
+```pip install -r requirements.txt```
+- Set up to be built into docker image and pushed to GCP Artifact Repo, and run on a Compute Engine instance
