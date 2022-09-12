@@ -1,14 +1,10 @@
-import patreon
-from flask import request
+# Campaign ID can be fetched trough the API (List all Campaigns: GET https://www.patreon.com/api/oauth2/v2/campaigns)
+# access_token can be created on https://www.patreon.com/portal/registration/register-clients
 
-client_id = None      # Replace with your data -> fetch from gcp secret manager
-client_secret = None  # Replace with your data -> fetch from gcp secret manager
-creator_id = None     # Replace with your data -> fetch from gcp secret manager
+import patreon
 
 def get_stuff():
-    oauth_client = patreon.OAuth(client_id, client_secret)
-    tokens = oauth_client.get_tokens(request.args.get('code'), '/oauth/redirect')
-    access_token = tokens['access_token']
+    access_token = None # replace with access token -> get from gcp secrets
 
     api_client = patreon.API(access_token)
     # Get the campaign ID
@@ -16,6 +12,7 @@ def get_stuff():
     campaign_id = campaign_response.data()[0].id()
 
     # Fetch all pledges
+    # OR alternatively call the endpoint directly? might be better approach to easily see the fields
     all_pledges = []
     cursor = None
     while True:
