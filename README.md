@@ -13,3 +13,6 @@ w.greet
 - Install required packages
 ```pip install -r requirements.txt```
 - Set up to be built into docker image and pushed to GCP Artifact Repo, and run on a Compute Engine instance
+
+## GCE Deploy
+- In process of setting up github actions for deployment to compute engine instance
